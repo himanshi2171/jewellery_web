@@ -1,0 +1,453 @@
+[
+  {
+    "id": 1,
+    "name": "Necklace Collection",
+    "product": 10,
+    "title": "Necklaces",
+    "image": "/assets/Image/Category/category1.png",
+    "offer": "Flat 25% off",
+    "description": "Elegant necklaces crafted with fine materials—perfect to add sparkle to any outfit.",
+    "data": [
+      {
+        "id": 1,
+        "name": "Initial Pendant",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces1.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["16 inch", "18 inch"],
+        "stock": 10,
+        "tagName": "Necklaces",
+        "description": "A classic gold initial pendant that adds a personal touch to your everyday style."
+      },
+      {
+        "id": 2,
+        "name": "Heart Drop",
+        "price": "200.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces2.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["16 inch", "18 inch"],
+        "stock": 8,
+        "tagName": "Necklaces",
+        "description": "A delicate heart-shaped pendant that dangles beautifully from a fine chain."
+      },
+      {
+        "id": 3,
+        "name": "Diamond Choker",
+        "price": "300.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces3.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["14 inch", "16 inch"],
+        "stock": 5,
+        "tagName": "Necklaces",
+        "description": "A stunning diamond choker designed for elegance and luxury."
+      },
+      {
+        "id": 4,
+        "name": "Leaf Pendant",
+        "price": "90.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces4.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["16 inch", "18 inch"],
+        "stock": 12,
+        "tagName": "Necklaces",
+        "description": "Nature-inspired leaf pendant with a textured gold finish."
+      },
+      {
+        "id": 5,
+        "name": "Ruby Pendant",
+        "price": "250.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces5.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["16 inch", "18 inch"],
+        "stock": 6,
+        "tagName": "Necklaces",
+        "description": "A rich ruby stone delicately set on a fine chain for timeless beauty."
+      },
+      {
+        "id": 6,
+        "name": "Opal Heart",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces6.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["16 inch", "18 inch"],
+        "stock": 9,
+        "tagName": "Necklaces",
+        "description": "Charming opal heart pendant that glows with soft iridescence."
+      },
+      {
+        "id": 7,
+        "name": "Interlocking Gold",
+        "price": "200.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces7.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["18 inch", "20 inch"],
+        "stock": 7,
+        "tagName": "Necklaces",
+        "description": "Two interlocking circles in gold symbolizing unity and connection."
+      },
+      {
+        "id": 8,
+        "name": "Lariat",
+        "price": "150.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces8.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["20 inch"],
+        "stock": 4,
+        "tagName": "Necklaces",
+        "description": "A sleek and modern lariat necklace perfect for elevating your outfit."
+      },
+      {
+        "id": 9,
+        "name": "Tag Pendant",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces9.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["18 inch", "20 inch"],
+        "stock": 10,
+        "tagName": "Necklaces",
+        "description": "A bold gold tag pendant necklace, perfect for making a statement."
+      },
+      {
+        "id": 10,
+        "name": "Flora Pendant",
+        "price": "300.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Necklaces/necklaces10.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["16 inch", "18 inch"],
+        "stock": 3,
+        "tagName": "Necklaces",
+        "description": "A beautifully crafted floral pendant with intricate petal detailing."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Earrings Collection",
+    "product": 10,
+    "title": "Earrings",
+    "image": "/assets/Image/Category/category2.png",
+    "offer": "Flat 25% off",
+    "description": "Elegant earrings crafted with fine materials—perfect to add sparkle to any outfit.",
+    "data": [
+      {
+        "id": 11,
+        "name": "Diamond Studs",
+        "price": "200.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings1.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Single", "Pair"],
+        "stock": 15,
+        "tagName": "Earrings",
+        "description": "Classic diamond stud earrings offering timeless sparkle and sophistication."
+      },
+      {
+        "id": 12,
+        "name": "Mini Hoops",
+        "price": "90.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings2.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Pair"],
+        "stock": 10,
+        "tagName": "Earrings",
+        "description": "Minimalist gold mini hoops perfect for daily wear or layering."
+      },
+      {
+        "id": 13,
+        "name": "Dangling Leaves",
+        "price": "60.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings3.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Pair"],
+        "stock": 12,
+        "tagName": "Earrings",
+        "description": "Elegant leaf-shaped dangling earrings that sway with movement."
+      },
+      {
+        "id": 14,
+        "name": "Leaf Studs",
+        "price": "40.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings4.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Pair"],
+        "stock": 18,
+        "tagName": "Earrings",
+        "description": "Nature-inspired leaf studs with a modern matte gold finish."
+      },
+      {
+        "id": 15,
+        "name": "Chain Drops",
+        "price": "40.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings5.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Pair"],
+        "stock": 11,
+        "tagName": "Earrings",
+        "description": "Delicate chain drop earrings for a sleek and trendy look."
+      },
+      {
+        "id": 16,
+        "name": "Star Bundle Studs",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings6.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Pair"],
+        "stock": 9,
+        "tagName": "Earrings",
+        "description": "Shimmering star cluster studs that add sparkle to any outfit."
+      },
+      {
+        "id": 17,
+        "name": "Spherical Drops",
+        "price": "150.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings7.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Pair"],
+        "stock": 7,
+        "tagName": "Earrings",
+        "description": "Modern spherical drop earrings with a sculptural elegance."
+      },
+      {
+        "id": 18,
+        "name": "Chained Studs",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Earrings/earrings8.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Pair"],
+        "stock": 14,
+        "tagName": "Earrings",
+        "description": "Bold and chic chained studs combining structure and edge."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Bracelets Collection",
+    "product": 10,
+    "title": "Bracelets",
+    "image": "/assets/Image/Category/category3.png",
+    "offer": "Flat 25% off",
+    "description": "Elegant Bracelts crafted with fine materials—perfect to add sparkle to any outfit.",
+    "data": [
+      {
+        "id": 19,
+        "name": "Chained Cuff",
+        "price": "200.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Bracelets/bracelets1.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["One Size"],
+        "stock": 10,
+        "tagName": "Bracelets",
+        "description": "A bold chained cuff bracelet blending edge and elegance with a polished gold finish."
+      },
+      {
+        "id": 20,
+        "name": "Thin Chain",
+        "price": "80.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Bracelets/bracelets2.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["6.5 inch", "7 inch"],
+        "stock": 15,
+        "tagName": "Bracelets",
+        "description": "A delicate thin chain bracelet designed for subtle, everyday elegance."
+      },
+      {
+        "id": 21,
+        "name": "Leafy Chain",
+        "price": "60.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Bracelets/bracelets3.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["7 inch"],
+        "stock": 12,
+        "tagName": "Bracelets",
+        "description": "Nature-inspired leafy chain bracelet with charming gold detailing."
+      },
+      {
+        "id": 22,
+        "name": "Flora Chain",
+        "price": "40.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Bracelets/bracelets4.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["6.5 inch", "7 inch"],
+        "stock": 18,
+        "tagName": "Bracelets",
+        "description": "A graceful floral bracelet that adds a soft, romantic touch to your wrist."
+      },
+      {
+        "id": 23,
+        "name": "Arrow Cuff",
+        "price": "50.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Bracelets/bracelets5.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["One Size"],
+        "stock": 14,
+        "tagName": "Bracelets",
+        "description": "Sleek and modern arrow cuff bracelet featuring open-ended styling."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Rings Collection",
+    "product": 5,
+    "title": "Rings",
+    "image": "/assets/Image/Category/category4.png",
+    "offer": "Flat 25% off",
+    "description": "Elegant rings crafted with fine materials—perfect to add sparkle to any outfit.",
+    "data": [
+      {
+        "id": 24,
+        "name": "Ring of Leaves",
+        "price": "200.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Rings/rings1.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["6", "7", "8"],
+        "stock": 10,
+        "tagName": "Rings",
+        "description": "Nature-inspired ring featuring elegant gold leaves intertwined beautifully."
+      },
+      {
+        "id": 25,
+        "name": "Simple Chain Ring",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Rings/rings2.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["6", "7", "8"],
+        "stock": 12,
+        "tagName": "Rings",
+        "description": "A minimalist chain-style ring with a polished finish for a chic everyday look."
+      },
+      {
+        "id": 26,
+        "name": "Tiara Ring",
+        "price": "150.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Rings/rings3.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["6", "7", "8"],
+        "stock": 8,
+        "tagName": "Rings",
+        "description": "A graceful tiara-inspired ring with shimmering stones for a royal touch."
+      },
+      {
+        "id": 27,
+        "name": "Rose Ring",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Rings/rings4.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["6", "7", "8"],
+        "stock": 11,
+        "tagName": "Rings",
+        "description": "Delicate gold ring featuring a detailed rose design on a slim band."
+      },
+      {
+        "id": 28,
+        "name": "Signet Ring",
+        "price": "100.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Rings/rings5.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["6", "7", "8"],
+        "stock": 14,
+        "tagName": "Rings",
+        "description": "Classic gold signet ring engraved with a subtle starburst gemstone design."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Charms Collection",
+    "product": 5,
+    "title": "Charms",
+    "image": "/assets/Image/Category/category5.png",
+    "offer": "Flat 25% off",
+    "description": "Elegant charms crafted with fine materials—perfect to personalize any chain or bracelet.",
+    "data": [
+      {
+        "id": 29,
+        "name": "Key Charm",
+        "price": "80.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Charms/charms1.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Single Piece"],
+        "stock": 10,
+        "tagName": "Charms",
+        "description": "A classic gold key charm symbolizing access, opportunity, and secrets."
+      },
+      {
+        "id": 30,
+        "name": "Cornicello Charm",
+        "price": "90.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Charms/charms2.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Single Piece"],
+        "stock": 8,
+        "tagName": "Charms",
+        "description": "Italian horn-shaped charm traditionally worn to protect against the evil eye."
+      },
+      {
+        "id": 31,
+        "name": "Medallion Charm",
+        "price": "60.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Charms/charms3.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Single Piece"],
+        "stock": 12,
+        "tagName": "Charms",
+        "description": "Minimalist round medallion charm, ideal for engraving or layering."
+      },
+      {
+        "id": 32,
+        "name": "Globe Charm",
+        "price": "90.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Charms/charms4.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Single Piece"],
+        "stock": 7,
+        "tagName": "Charms",
+        "description": "A detailed globe charm representing wanderlust and worldly adventures."
+      },
+      {
+        "id": 33,
+        "name": "Heart Charm",
+        "price": "80.00",
+        "title": "Everlight Jewels",
+        "image": "/assets/Image/Charms/charms5.jpg",
+        "offer": "Flat 25% off",
+        "quantity": ["Single Piece"],
+        "stock": 10,
+        "tagName": "Charms",
+        "description": "Charming heart-shaped gold charm with a single sparkling stone."
+      }
+    ]
+  }
+]
