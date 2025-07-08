@@ -60,7 +60,7 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
           Clear all
         </button>
       </div>
-     Category
+      Category
       <div>
         <h4 className="font-semibold text-gray-800 mb-2">Category</h4>
         <div className="space-y-2">
@@ -88,12 +88,15 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
           </label>
         </div>
       </div>
-     Brand
+      Brand
       <div>
         <h4 className="font-semibold text-gray-800 mb-2">Brand</h4>
         <div className="space-y-2">
           {brands.map((brand) => (
-            <label key={brand} className="flex items-center gap-2 cursor-pointer">
+            <label
+              key={brand}
+              className="flex items-center gap-2 cursor-pointer"
+            >
               <input
                 type="checkbox"
                 checked={selectedBrands.includes(brand)}
@@ -105,7 +108,7 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
           ))}
         </div>
       </div>
-     Price
+      Price
       <div>
         <h4 className="font-semibold text-gray-800 mb-2">Price</h4>
         <div className="flex items-center gap-2 mb-2">
@@ -114,7 +117,9 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
             value={priceRange.min}
             min={minPrice}
             max={priceRange.max}
-            onChange={(e) => onPriceChange(Number(e.target.value), priceRange.max)}
+            onChange={(e) =>
+              onPriceChange(Number(e.target.value), priceRange.max)
+            }
             className="w-20 px-2 py-1 border border-gray-300 rounded"
             placeholder="Min"
           />
@@ -124,7 +129,9 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
             value={priceRange.max}
             min={priceRange.min}
             max={maxPrice}
-            onChange={(e) => onPriceChange(priceRange.min, Number(e.target.value))}
+            onChange={(e) =>
+              onPriceChange(priceRange.min, Number(e.target.value))
+            }
             className="w-20 px-2 py-1 border border-gray-300 rounded"
             placeholder="Max"
           />
@@ -134,7 +141,9 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
           min={minPrice}
           max={maxPrice}
           value={priceRange.min}
-          onChange={(e) => onPriceChange(Number(e.target.value), priceRange.max)}
+          onChange={(e) =>
+            onPriceChange(Number(e.target.value), priceRange.max)
+          }
           className="w-full mb-1"
         />
         <input
@@ -142,11 +151,13 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
           min={minPrice}
           max={maxPrice}
           value={priceRange.max}
-          onChange={(e) => onPriceChange(priceRange.min, Number(e.target.value))}
+          onChange={(e) =>
+            onPriceChange(priceRange.min, Number(e.target.value))
+          }
           className="w-full"
         />
       </div>
-     Rating
+      Rating
       <div>
         <h4 className="font-semibold text-gray-800 mb-2">Rating</h4>
         <div className="flex gap-2">
@@ -154,7 +165,11 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
             <button
               key={star}
               type="button"
-              className={`px-2 py-1 rounded border ${rating === star ? "bg-[#a58c3d] text-white" : "bg-white text-gray-700"}`}
+              className={`px-2 py-1 rounded border ${
+                rating === star
+                  ? "bg-[#a58c3d] text-white"
+                  : "bg-white text-gray-700"
+              }`}
               onClick={() => onRatingChange(star)}
             >
               {star}★
@@ -162,14 +177,18 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
           ))}
           <button
             type="button"
-            className={`px-2 py-1 rounded border ${rating === 0 ? "bg-[#a58c3d] text-white" : "bg-white text-gray-700"}`}
+            className={`px-2 py-1 rounded border ${
+              rating === 0
+                ? "bg-[#a58c3d] text-white"
+                : "bg-white text-gray-700"
+            }`}
             onClick={() => onRatingChange(0)}
           >
             All
           </button>
         </div>
       </div>
-     Availability, Sale, New
+      Availability, Sale, New
       <div className="space-y-2">
         <label className="flex items-center gap-2 cursor-pointer">
           <input
@@ -199,7 +218,7 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
           <span className="text-sm text-gray-700">New Arrivals</span>
         </label>
       </div>
-     Tags
+      Tags
       <div>
         <h4 className="font-semibold text-gray-800 mb-2">Tags</h4>
         <div className="flex flex-wrap gap-2">
@@ -207,7 +226,11 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
             <button
               key={tag}
               type="button"
-              className={`px-3 py-1 rounded-full border ${selectedTags.includes(tag) ? "bg-[#a58c3d] text-white" : "bg-white text-gray-700"}`}
+              className={`px-3 py-1 rounded-full border ${
+                selectedTags.includes(tag)
+                  ? "bg-[#a58c3d] text-white"
+                  : "bg-white text-gray-700"
+              }`}
               onClick={() => onTagToggle(tag)}
             >
               {tag}
@@ -219,4 +242,4 @@ const ProductFilterSidebar: React.FC<ProductFilterSidebarProps> = ({
   );
 };
 
-export default ProductFilterSidebar; 
+export default ProductFilterSidebar;

@@ -77,7 +77,7 @@ export default function SignIn() {
         onSuccess: (res) => {
           if (res.status === 200) {
             localStorage.setItem("username", res.data.user.name);
-            localStorage.setItem("userData",JSON.stringify(res.data.user));
+            localStorage.setItem("userData", JSON.stringify(res.data.user));
             localStorage.setItem("loginTime", Date.now().toString());
             router.push("/");
           }

@@ -69,6 +69,11 @@ const CartPage = () => {
     toast.success("Cart emptied");
   };
 
+  const handleCheckout = () => {
+    router.push("/home/checkout");
+    toast.success("Proceeding to checkout");
+  };
+
   const calculateTotal = () => {
     return items.reduce((total: number, item: any) => {
       const price = Number(item.product.price);
@@ -109,7 +114,7 @@ const CartPage = () => {
               <div className="mt-8">
                 <Link
                   href="/"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[#a58c3d] hover:bg-[#5a6d47] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#a58c3d]"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm  bg-[#a58c3d] hover:bg-[#C2992F] hover:text-black transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A0704]"
                 >
                   <ArrowLeft className="mr-2 h-5 w-5" />
                   Continue Shopping
@@ -201,15 +206,13 @@ const CartPage = () => {
                 <div className="flex gap-4 pt-4">
                   <Link
                     href="/home"
-                    className="flex-1 px-6 py-3 text-white border border-gray-300  rounded-md hover:bg-gray-50 font-semibold transition-colors text-center"
+                    className="flex-1 px-6 py-3  text-white border border-gray-300  rounded-md hover:bg-gray-50 font-semibold transition-colors text-center"
                   >
                     Continue Shopping
                   </Link>
                   <button
                     className="flex-1 px-6 py-3 bg-[#a58c3d] text-white rounded-md hover:bg-[#C2992F] font-semibold transition-colors text-center"
-                    onClick={() => {
-                      router.push("/home/checkout");
-                    }}
+                    onClick={handleCheckout}
                   >
                     Proceed to Checkout
                   </button>
@@ -230,9 +233,7 @@ const CartPage = () => {
     );
   };
 
-  return (
-      <CartContent />
-  );
+  return <CartContent />;
 };
 
 export default CartPage;

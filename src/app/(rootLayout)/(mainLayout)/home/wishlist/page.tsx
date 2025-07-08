@@ -120,7 +120,7 @@ const Wishlist = () => {
               <div className="mt-8 text-white">
                 <Link
                   href="/"
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm  bg-[#0A0704] hover:bg-[#5a6d47] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A0704]"
+                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm  bg-[#a58c3d] hover:bg-[#C2992F] hover:text-black transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A0704]"
                 >
                   <ArrowLeft className="mr-2 h-5 w-5" />
                   Continue Shopping
@@ -155,7 +155,7 @@ const Wishlist = () => {
                   <button
                     onClick={moveAllToCart}
                     disabled={isClearing}
-                    className="inline-flex items-center px-4 py-2 bg-[#0A0704] text-white rounded-md hover:bg-[#5a6d47] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center px-4 py-2 bg-[#0A0704] text-white rounded-md hover:bg-[#C2992F] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isClearing ? (
                       <Loader2 className="w-4 h-4 animate-spin mr-2" />

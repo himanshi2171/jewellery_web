@@ -43,10 +43,7 @@ export default function Header() {
 
   if (!mounted) return null;
 
-  const cartItemCount = cartItems.reduce(
-    (total: number, item: any) => total + (item.quantity ?? 1),
-    0
-  );
+  const cartItemCount = cartItems?.length;
   const wishlistCount = wishlistItems?.length;
 
   const handleLogout = () => {
@@ -118,7 +115,11 @@ export default function Header() {
             <Search className="w-4 h-4 text-[#8B7C6B]" />
           </div>
 
-          <Link href="/home/wishlist" className="p-2 relative" onClick={handleWishlistClick}>
+          <Link
+            href="/home/wishlist"
+            className="p-2 relative"
+            onClick={handleWishlistClick}
+          >
             <Heart className="w-5 h-5 text-[#8B7C6B] hover:text-red-500 transition-colors" />
             {wishlistCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -167,12 +168,7 @@ export default function Header() {
                     >
                       <Package className="w-4 h-4" /> Orders
                     </button>
-                    <button
-                      onClick={() => handleProtectedClick("/rewards")}
-                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-                    >
-                      <BadgePercent className="w-4 h-4" /> Rewards
-                    </button>
+
                     <button
                       onClick={() => handleProtectedClick("/gifts")}
                       className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"

@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     zip: DataTypes.STRING,
+    isDefault: DataTypes.BOOLEAN,
   });
 
   Address.associate = (models) => {

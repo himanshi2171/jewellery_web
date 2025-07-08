@@ -26,9 +26,7 @@ export default function ViewProductDetailsPage() {
 
   const images: string[] = [product?.image ?? "/assets/Image/placeholder.jpg"];
   const [selectedImg, setSelectedImg] = useState(0);
-  const [selectedSize, setSelectedSize] = useState(
-    product?.quantity?.[0] || ""
-  );
+  const [selectedSize, setSelectedSize] = useState(product?.size?.[0] || "");
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = (product: {
@@ -39,7 +37,7 @@ export default function ViewProductDetailsPage() {
     title?: string;
     offer?: string;
     stock?: number;
-    quantity?: string[];
+    size?: string[];
     tagName?: string;
     description?: string;
   }) => {
@@ -126,11 +124,11 @@ export default function ViewProductDetailsPage() {
             </p>
           </div>
 
-          {product.quantity?.length > 0 && (
+          {product.size?.length > 0 && (
             <div>
               <label className="block font-semibold mb-2">Size:</label>
               <div className="flex gap-2 flex-wrap">
-                {product.quantity.map((size) => (
+                {product.size.map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}

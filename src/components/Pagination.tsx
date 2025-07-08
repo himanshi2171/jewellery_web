@@ -6,7 +6,11 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   if (totalPages <= 1) return null;
 
   const pages = [];
@@ -28,7 +32,9 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
           key={page}
           onClick={() => onPageChange(page)}
           className={`px-3 py-1 rounded border ${
-            page === currentPage ? "bg-[#a58c3d] text-white" : "bg-white text-gray-700"
+            page === currentPage
+              ? "bg-[#a58c3d] text-white"
+              : "bg-white text-gray-700"
           }`}
         >
           {page}
@@ -45,4 +51,4 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, onPage
   );
 };
 
-export default Pagination; 
+export default Pagination;

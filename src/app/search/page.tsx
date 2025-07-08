@@ -105,7 +105,7 @@ const SearchResultsPage = () => {
           </p>
           <Link
             href="/"
-            className="inline-flex items-center text-[#0A0704] hover:text-[#5a6d47] transition-colors"
+            className="inline-flex items-center text-[#0A0704] hover:text-[#C2992F] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
@@ -126,7 +126,7 @@ const SearchResultsPage = () => {
           <div className="flex items-center gap-4 mb-4">
             <Link
               href="/"
-              className="inline-flex items-center text-[#0A0704] hover:text-[#5a6d47] transition-colors"
+              className="inline-flex items-center text-[#0A0704] hover:text-[#C2992F] transition-colors"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back

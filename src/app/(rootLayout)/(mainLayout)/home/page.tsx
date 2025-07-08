@@ -33,19 +33,12 @@ const Home = () => {
     );
   }, [dispatch]);
 
-  // Example fetch
-  const fetchData = async () => {
-    const res = await fetch("http://localhost:3000/api/categories");
-    const data = await res.json();
-    console.log(data, "hello himanshi");
-  };
-
   // Redirect authenticated users away from auth pages if they're on them
   useEffect(() => {
     const currentPath = window.location.pathname;
     if (
-      (currentPath.includes("/auth/signin") ||
-        currentPath.includes("/auth/signup"))
+      currentPath.includes("/auth/signin") ||
+      currentPath.includes("/auth/signup")
     ) {
       router.push("/home");
     }

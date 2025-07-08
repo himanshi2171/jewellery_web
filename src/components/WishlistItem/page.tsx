@@ -63,7 +63,7 @@ export const WishlistItem: React.FC<WishlistItemProps> = ({
           <button
             onClick={onMoveToCart}
             disabled={isMovingToCart || isRemoving}
-            className="inline-flex items-center justify-center px-4 py-2 bg-[#0A0704] text-white rounded-lg hover:bg-[#5a6d47] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center px-4 py-2 bg-[#0A0704] text-white rounded-lg hover:bg-[#C2992F] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isMovingToCart ? (
               <Loader2 className="w-4 h-4 animate-spin" />

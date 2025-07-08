@@ -28,7 +28,7 @@ router.get("/addressGetAll", async (req, res) => {
 
 router.post("/user/addressStore", async (req, res) => {
   try {
-    const { userId, address, city, state, zip } = req.body; 
+    const { userId, address, city, state, zip, isDefault } = req.body;
 
     if (!userId) {
       return res.status(400).json({ error: "User ID is required" });
@@ -46,6 +46,7 @@ router.post("/user/addressStore", async (req, res) => {
       city,
       state,
       zip,
+      isDefault,
     });
 
     res.status(200).json(newAddress);
@@ -54,6 +55,5 @@ router.post("/user/addressStore", async (req, res) => {
     res.status(500).json({ error: "Server error, please try again later" });
   }
 });
-
 
 module.exports = router;

@@ -7,6 +7,8 @@ import {
   addressFindByUser,
   addressStoreByUser,
 } from "@/redux/action/userAction";
+import { FiMapPin } from "react-icons/fi";
+import { emptyCart } from "@/redux/action/cartActions";
 
 type Address = {
   label: string;
@@ -14,13 +16,12 @@ type Address = {
   city: string;
   state: string;
   zip: string;
+  isDefault: boolean;
 };
 
 export default function CheckoutPage() {
-  // Redux cart state
   const cartItems = useSelector((state: any) => state.cart.items);
 
-  // Calculate totals
   const subtotal = cartItems.reduce(
     (sum: number, item: any) => sum + item.product.price * item.quantity,
     0
@@ -33,10 +34,6 @@ export default function CheckoutPage() {
   const [myInfo, setMyInfo] = useState({
     email: "",
     phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
   });
   const [delivery, setDelivery] = useState("shipment");
   const [shippingInfo, setShippingInfo] = useState({
@@ -50,50 +47,63 @@ export default function CheckoutPage() {
     card: "",
     expiry: "",
     cvv: "",
-    zip: "",
-    address: "",
   });
   const [sameAsShipping, setSameAsShipping] = useState(false);
   const [errors, setErrors] = useState<any>({});
   const router = useRouter();
-  const dispatch = useDispatch();
-  let userID: any;
-  const userData = localStorage.getItem("userData");
-  if (userData) {
-    userID = JSON.parse(userData)?.id;
-  }
+  const dispatch: any = useDispatch();
+  const [userID, setUserID] = useState<any>(null);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const userData = localStorage.getItem("userData");
+      if (userData) {
+        setUserID(JSON.parse(userData)?.id);
+      }
+    }
+  }, []);
 
-  // Demo: stored addresses
   const [storedAddresses, setStoredAddresses] = useState<Address[]>([]);
   const [showAddressModal, setShowAddressModal] = useState(false);
 
   useEffect(() => {
-    if (showAddressModal) {
-      dispatch(
-        addressFindByUser({
-          userID,
-          onSuccess: (res) => {
-            console.log(res);
-            if (res.status === 200 && Array.isArray(res.data)) {
-              setStoredAddresses(res.data);
-            }
-          },
-          onFailure: () => {
-            console.log("Failure!");
-          },
-        })
-      );
+    if (userID) {
+      fetchData();
     }
-  }, [showAddressModal]);
+  }, [userID]);
 
-  // Autofill shipping with my info
-  const autofillShipping = () => {
-    setShippingInfo({
-      address: myInfo.address,
-      city: myInfo.city,
-      state: myInfo.state,
-      zip: myInfo.zip,
-    });
+  useEffect(() => {
+    if (userID && showAddressModal) {
+      fetchData();
+    }
+  }, [userID, showAddressModal]);
+
+  const fetchData = () => {
+    dispatch(
+      addressFindByUser({
+        userID: userID,
+        onSuccess: (res) => {
+          if (res.status === 200 && Array.isArray(res.data)) {
+            setStoredAddresses(res.data);
+            if (Array.isArray(res.data)) {
+              const defaultAddress = res.data.find(
+                (addr: Address) => addr.isDefault === true
+              );
+              if (defaultAddress) {
+                setShippingInfo({
+                  address: defaultAddress.address,
+                  city: defaultAddress.city,
+                  state: defaultAddress.state,
+                  zip: defaultAddress.zip,
+                });
+              }
+            }
+          }
+        },
+        onFailure: (error) => {
+          console.log("Failure!", error);
+        },
+      })
+    );
   };
 
   // Autofill billing with shipping info
@@ -107,35 +117,51 @@ export default function CheckoutPage() {
     }
   }, [sameAsShipping, shippingInfo]);
 
-  // Validation
   const validate = () => {
     const newErrors: any = {};
-    if (!myInfo.email) newErrors.email = "Required";
-    if (!myInfo.phone) newErrors.phone = "Required";
-    if (!myInfo.address) newErrors.myAddress = "Required";
-    if (!myInfo.city) newErrors.myCity = "Required";
-    if (!myInfo.state) newErrors.myState = "Required";
-    if (!myInfo.zip) newErrors.myZip = "Required";
+    if (!myInfo.email) newErrors.email = "Please enter your email address.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(myInfo.email))
+      newErrors.email =
+        "Please enter a valid email address (e.g., user@example.com).";
+    if (!myInfo.phone) newErrors.phone = "Please enter your phone number.";
+    else if (!/^\d{10}$/.test(myInfo.phone.replace(/\D/g, "")))
+      newErrors.phone = "Please enter a valid 10-digit phone number.";
+
     if (delivery === "shipment") {
-      if (!shippingInfo.address) newErrors.shippingAddress = "Required";
-      if (!shippingInfo.city) newErrors.shippingCity = "Required";
-      if (!shippingInfo.state) newErrors.shippingState = "Required";
-      if (!shippingInfo.zip) newErrors.shippingZip = "Required";
+      if (!shippingInfo.address)
+        newErrors.shippingAddress = "Please enter the shipping address.";
+      if (!shippingInfo.city)
+        newErrors.shippingCity = "Please enter the shipping city.";
+      if (!shippingInfo.state)
+        newErrors.shippingState = "Please enter the shipping state.";
+      if (!shippingInfo.zip)
+        newErrors.shippingZip = "Please enter the shipping ZIP code.";
+      else if (!/^\d{6}(-\d{4})?$/.test(shippingInfo.zip))
+        newErrors.shippingZip = "Please enter a valid 5-digit ZIP code.";
     }
-    if (!billing.name) newErrors.billingName = "Required";
-    if (!billing.card) newErrors.billingCard = "Required";
-    if (!billing.expiry) newErrors.billingExpiry = "Required";
-    if (!billing.cvv) newErrors.billingCVV = "Required";
-    if (!billing.zip) newErrors.billingZip = "Required";
-    if (!billing.address) newErrors.billingAddress = "Required";
+    if (!billing.name)
+      newErrors.billingName = "Please enter the name on the card.";
+    if (!billing.card) newErrors.billingCard = "Please enter your card number.";
+    else if (!/^\d{16}$/.test(billing.card.replace(/\s/g, "")))
+      newErrors.billingCard =
+        "Please enter a valid card number (13-19 digits).";
+    if (!billing.expiry)
+      newErrors.billingExpiry = "Please enter the card's expiry date.";
+    else if (!/^(0[1-9]|1[0-2])\/?([0-9]{2})$/.test(billing.expiry))
+      newErrors.billingExpiry = "Expiry date must be in MM/YY format.";
+    if (!billing.cvv) newErrors.billingCVV = "Please enter the card's CVV.";
+    else if (!/^\d{3,4}$/.test(billing.cvv))
+      newErrors.billingCVV = "Please enter a valid CVV (3 or 4 digits).";
     setErrors(newErrors);
+    console.log(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handlePurchase = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // if (!validate()) return;
+    if (!validate()) return;
+
     const orderData = {
       cartItems,
       myInfo,
@@ -147,60 +173,96 @@ export default function CheckoutPage() {
       shipping,
       tax,
     };
-    if (typeof window !== "undefined") {
-      localStorage.setItem("orderData", JSON.stringify(orderData));
+
+    if (userID) {
+      dispatch(
+        addressStoreByUser({
+          formData: {
+            userID,
+            address: shippingInfo.address,
+            city: shippingInfo.city,
+            state: shippingInfo.state,
+            zip: shippingInfo.zip,
+            isDefault: storedAddresses?.length === 0 ? true : false,
+          },
+          onSuccess: (res) => {
+            if (res.status === 200) {
+              dispatch(emptyCart());
+              if (typeof window !== "undefined") {
+                localStorage.setItem("orderData", JSON.stringify(orderData));
+              }
+              setStoredAddresses([res.data]);
+              router.push("/home/checkout/confirmation");
+            }
+          },
+          onFailure: () => {
+            console.log("Failure!");
+          },
+        })
+      );
     }
-    dispatch(
-      addressStoreByUser({
-        formData: {
-          userID,
-          address: shippingInfo.address,
-          city: shippingInfo.city,
-          state: shippingInfo.state,
-          zip: shippingInfo.zip,
-        },
-        onSuccess: (res) => {
-          if (res.status === 200) {
-            setStoredAddresses(res.data);
-            router.push("/home/checkout/confirmation");
-          }
-        },
-        onFailure: () => {
-          console.log("Failure!");
-        },
-      })
-    );
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto py-10 px-2 md:px-6">
-      <form className="flex-1 space-y-8">
-        <div>
-          <h2 className="text-lg font-semibold mb-2">My Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              className="border p-2 rounded col-span-1"
-              placeholder="Email address"
-              value={myInfo.email}
-              onChange={(e) => setMyInfo({ ...myInfo, email: e.target.value })}
-              type="email"
-              required
-            />
-            <input
-              className="border p-2 rounded col-span-1"
-              placeholder="Phone Number"
-              value={myInfo.phone}
-              onChange={(e) => setMyInfo({ ...myInfo, phone: e.target.value })}
-              required
-            />
+    <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto py-4 md:py-10 px-2 md:px-6">
+      <form className="flex-1 w-full space-y-6 md:space-y-8">
+        <div className="mb-8">
+          <h2 className="text-lg font-bold mb-4 border-b pb-2">
+            My Information
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="email" className="block font-medium mb-1">
+                Email address <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="email"
+                className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                  errors.email ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Email address"
+                value={myInfo.email}
+                onChange={(e) =>
+                  setMyInfo({ ...myInfo, email: e.target.value })
+                }
+                type="email"
+                required
+              />
+              {errors.email && (
+                <span className="text-xs text-red-500 mt-1 block">
+                  {errors.email}
+                </span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="phone" className="block font-medium mb-1">
+                Phone Number <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="phone"
+                className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                  errors.phone ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Phone Number"
+                value={myInfo.phone}
+                onChange={(e) =>
+                  setMyInfo({ ...myInfo, phone: e.target.value })
+                }
+                required
+              />
+              {errors.phone && (
+                <span className="text-xs text-red-500 mt-1 block">
+                  {errors.phone}
+                </span>
+              )}
+            </div>
           </div>
         </div>
-        {/* Delivery Method */}
         <div>
-          <h2 className="text-lg font-semibold mb-2">
+          <h2 className="text-base md:text-lg font-semibold mb-2">
             How would you like to receive your order?
           </h2>
-          <div className="flex gap-6 items-center">
+          <div className="flex gap-4 md:gap-6 items-center flex-wrap">
             <label className="flex items-center gap-2">
               <input
                 type="radio"
@@ -219,11 +281,10 @@ export default function CheckoutPage() {
             </label>
           </div>
         </div>
-        {/* Shipping Details or Pickup Location */}
         {delivery === "shipment" && (
-          <div>
-            <div className="flex justify-between items-center mb-2">
-              <h2 className="text-lg font-semibold">Shipping Details</h2>
+          <div className="mb-8">
+            <div className="flex justify-between items-center mb-4 border-b pb-2">
+              <h2 className="text-lg font-bold">Shipping Details</h2>
               <button
                 type="button"
                 className="text-xs underline text-gray-500"
@@ -232,104 +293,168 @@ export default function CheckoutPage() {
                 Choose a different location
               </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                className="border p-2 rounded col-span-2"
-                placeholder="Shipping address"
-                value={shippingInfo.address}
-                onChange={(e) =>
-                  setShippingInfo({ ...shippingInfo, address: e.target.value })
-                }
-                required
-              />
-              <input
-                className="border p-2 rounded"
-                placeholder="City"
-                value={shippingInfo.city}
-                onChange={(e) =>
-                  setShippingInfo({ ...shippingInfo, city: e.target.value })
-                }
-                required
-              />
-              <input
-                className="border p-2 rounded"
-                placeholder="State"
-                value={shippingInfo.state}
-                onChange={(e) =>
-                  setShippingInfo({ ...shippingInfo, state: e.target.value })
-                }
-                required
-              />
-              <input
-                className="border p-2 rounded"
-                placeholder="ZIP Code"
-                value={shippingInfo.zip}
-                onChange={(e) =>
-                  setShippingInfo({ ...shippingInfo, zip: e.target.value })
-                }
-                required
-              />
-            </div>
-            {/* Address Modal */}
-            {showAddressModal && (
-              <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
-                <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
-                  <button
-                    className="absolute top-2 right-3 text-gray-400 hover:text-black text-xl"
-                    onClick={() => setShowAddressModal(false)}
-                    aria-label="Close"
-                  >
-                    ×
-                  </button>
-                  <h3 className="text-lg font-semibold mb-4">Select Address</h3>
-                  <ul className="flex flex-col gap-1 mb-4">
-                    {storedAddresses.map((addr, idx) => (
-                      <li
-                        key={idx}
-                        className={
-                          "px-3 py-2 rounded border cursor-pointer text-sm transition-colors bg-white-200 text-black hover:bg-gray-200 hover:text-black"
-                        }
-                        onClick={() => {
-                          setShippingInfo({
-                            address: addr.address,
-                            city: addr.city,
-                            state: addr.state,
-                            zip: addr.zip,
-                          });
-                          setShowAddressModal(false);
-                        }}
-                      >
-                        <div>
-                          <div className="font-semibold">{addr?.label}</div>
-                          <div>
-                            <b>address:</b>
-                            {addr?.address}
-                          </div>
-                          <div>
-                            <b>city:</b>
-                            {addr?.city}
-                          </div>
-                          <div>
-                            <b>state:</b>
-                            {addr?.state}
-                          </div>
-                          <div>
-                            <b>zip:</b>
-                            {addr?.zip}
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="shippingAddress"
+                  className="block font-medium mb-1"
+                >
+                  Shipping address <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="shippingAddress"
+                  className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                    errors.shippingAddress
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
+                  placeholder="Shipping address"
+                  value={shippingInfo.address}
+                  onChange={(e) =>
+                    setShippingInfo({
+                      ...shippingInfo,
+                      address: e.target.value,
+                    })
+                  }
+                  required
+                />
+                {errors.shippingAddress && (
+                  <span className="text-xs text-red-500 mt-1 block">
+                    {errors.shippingAddress}
+                  </span>
+                )}
               </div>
-            )}
+              <div>
+                <label
+                  htmlFor="shippingCity"
+                  className="block font-medium mb-1"
+                >
+                  City <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="shippingCity"
+                  className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                    errors.shippingCity ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="City"
+                  value={shippingInfo.city}
+                  onChange={(e) =>
+                    setShippingInfo({ ...shippingInfo, city: e.target.value })
+                  }
+                  required
+                />
+                {errors.shippingCity && (
+                  <span className="text-xs text-red-500 mt-1 block">
+                    {errors.shippingCity}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label
+                  htmlFor="shippingState"
+                  className="block font-medium mb-1"
+                >
+                  State <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="shippingState"
+                  className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                    errors.shippingState ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="State"
+                  value={shippingInfo.state}
+                  onChange={(e) =>
+                    setShippingInfo({ ...shippingInfo, state: e.target.value })
+                  }
+                  required
+                />
+                {errors.shippingState && (
+                  <span className="text-xs text-red-500 mt-1 block">
+                    {errors.shippingState}
+                  </span>
+                )}
+              </div>
+              <div>
+                <label htmlFor="shippingZip" className="block font-medium mb-1">
+                  ZIP Code <span className="text-red-500">*</span>
+                </label>
+                <input
+                  id="shippingZip"
+                  className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                    errors.shippingZip ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="ZIP Code"
+                  value={shippingInfo.zip}
+                  onChange={(e) =>
+                    setShippingInfo({ ...shippingInfo, zip: e.target.value })
+                  }
+                  required
+                />
+                {errors.shippingZip && (
+                  <span className="text-xs text-red-500 mt-1 block">
+                    {errors.shippingZip}
+                  </span>
+                )}
+              </div>
+              {showAddressModal && (
+                <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm">
+                  <div className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md relative">
+                    <button
+                      className="absolute top-2 right-3 text-gray-400 hover:text-black text-xl"
+                      onClick={() => setShowAddressModal(false)}
+                      aria-label="Close"
+                    >
+                      ×
+                    </button>
+                    <h3 className="text-lg font-semibold mb-4">
+                      Select Address
+                    </h3>
+                    <ul className="flex flex-col gap-1 mb-4">
+                      {storedAddresses?.map((addr, idx) => (
+                        <li
+                          key={idx}
+                          className={`${
+                            addr.isDefault ? "bg-gray-200" : "bg-white"
+                          } px-3 py-2 rounded border cursor-pointer text-sm transition-colors text-black hover:bg-gray-200 hover:text-black flex items-start gap-2`}
+                          onClick={() => {
+                            setShippingInfo({
+                              address: addr.address,
+                              city: addr.city,
+                              state: addr.state,
+                              zip: addr.zip,
+                            });
+                            setShowAddressModal(false);
+                          }}
+                        >
+                          <FiMapPin className="text-xl text-gray-500 mt-1" />
+                          <div>
+                            <div className="font-semibold">{addr?.label}</div>
+                            <div>
+                              <b>address:</b> {addr?.address}
+                            </div>
+                            <div>
+                              <b>city:</b> {addr?.city}
+                            </div>
+                            <div>
+                              <b>state:</b> {addr?.state}
+                            </div>
+                            <div>
+                              <b>zip:</b> {addr?.zip}
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         )}
         {delivery === "inperson" && (
           <div className="mb-8">
-            <div className="flex justify-between items-center mb-2 border-b pb-2">
-              <h2 className="text-lg font-semibold">Pickup Location</h2>
+            <div className="flex justify-between items-center mb-4 border-b pb-2">
+              <h2 className="text-lg font-bold">Pickup Location</h2>
               <button type="button" className="text-xs underline text-gray-500">
                 Choose a different location
               </button>
@@ -347,72 +472,107 @@ export default function CheckoutPage() {
             </div>
           </div>
         )}
-        {/* Billing Information */}
-        <div>
-          <h2 className="text-lg font-semibold mb-2">Billing Information</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input
-              className="border p-2 rounded col-span-2"
-              placeholder="Name on Card"
-              value={billing.name}
-              onChange={(e) => setBilling({ ...billing, name: e.target.value })}
-              required
-            />
-            <input
-              className="border p-2 rounded col-span-2"
-              placeholder="Debit / Credit Card Number"
-              value={billing.card}
-              onChange={(e) => setBilling({ ...billing, card: e.target.value })}
-              required
-            />
-            <input
-              className="border p-2 rounded"
-              placeholder="Expiration Date (MM/YY)"
-              value={billing.expiry}
-              onChange={(e) =>
-                setBilling({ ...billing, expiry: e.target.value })
-              }
-              required
-            />
-            <input
-              className="border p-2 rounded"
-              placeholder="CVV"
-              value={billing.cvv}
-              onChange={(e) => setBilling({ ...billing, cvv: e.target.value })}
-              required
-            />
-            <input
-              className="border p-2 rounded"
-              placeholder="ZIP Code"
-              value={billing.zip}
-              onChange={(e) => setBilling({ ...billing, zip: e.target.value })}
-              required
-            />
-            <div className="flex items-center gap-2 mt-2">
-              <input
-                type="checkbox"
-                checked={sameAsShipping}
-                onChange={(e) => setSameAsShipping(e.target.checked)}
-                id="sameAsShipping"
-              />
-              <label htmlFor="sameAsShipping" className="text-xs">
-                Same as Shipping Address
+        <div className="mb-8">
+          <h2 className="text-lg font-bold mb-4 border-b pb-2">
+            Billing Information
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label htmlFor="billingName" className="block font-medium mb-1">
+                Name on Card <span className="text-red-500">*</span>
               </label>
+              <input
+                id="billingName"
+                className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                  errors.billingName ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Name on Card"
+                value={billing.name}
+                onChange={(e) =>
+                  setBilling({ ...billing, name: e.target.value })
+                }
+                required
+              />
+              {errors.billingName && (
+                <span className="text-xs text-red-500 mt-1 block">
+                  {errors.billingName}
+                </span>
+              )}
             </div>
-            <input
-              className="border p-2 rounded col-span-2"
-              placeholder="Billing Address"
-              value={billing.address}
-              onChange={(e) =>
-                setBilling({ ...billing, address: e.target.value })
-              }
-              required
-            />
+            <div>
+              <label htmlFor="billingCard" className="block font-medium mb-1">
+                Debit / Credit Card Number{" "}
+                <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="billingCard"
+                className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                  errors.billingCard ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Debit / Credit Card Number"
+                value={billing.card}
+                onChange={(e) =>
+                  setBilling({ ...billing, card: e.target.value })
+                }
+                required
+              />
+              {errors.billingCard && (
+                <span className="text-xs text-red-500 mt-1 block">
+                  {errors.billingCard}
+                </span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="billingExpiry" className="block font-medium mb-1">
+                Expiration Date (MM/YY) <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="billingExpiry"
+                className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                  errors.billingExpiry ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Expiration Date (MM/YY)"
+                value={billing.expiry}
+                onChange={(e) =>
+                  setBilling({ ...billing, expiry: e.target.value })
+                }
+                required
+              />
+              {errors.billingExpiry && (
+                <span className="text-xs text-red-500 mt-1 block">
+                  {errors.billingExpiry}
+                </span>
+              )}
+            </div>
+            <div>
+              <label htmlFor="billingCVV" className="block font-medium mb-1">
+                CVV <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="billingCVV"
+                className={`border p-2 rounded w-full focus:ring-2 focus:ring-black transition ${
+                  errors.billingCVV ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="CVV"
+                value={billing.cvv}
+                onChange={(e) =>
+                  setBilling({ ...billing, cvv: e.target.value })
+                }
+                required
+              />
+              {errors.billingCVV && (
+                <span className="text-xs text-red-500 mt-1 block">
+                  {errors.billingCVV}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </form>
-      <aside className="w-full md:w-80 bg-white border rounded-lg shadow p-6 h-fit self-start">
-        <h3 className="text-lg font-semibold mb-4 text-center">Order Total</h3>
+      <aside className="w-full md:w-80 max-w-full bg-white border rounded-lg shadow p-6 h-fit self-start mt-6 md:mt-0">
+        <h3 className="text-base md:text-lg font-semibold mb-4 text-center">
+          Order Total
+        </h3>
         <div className="text-sm mb-2 flex justify-between">
           <span>Subtotal</span>
           <span>${subtotal.toFixed(2)}</span>
@@ -430,10 +590,10 @@ export default function CheckoutPage() {
           <span>${total.toFixed(2)}</span>
         </div>
         <button
-          onClick={handleSubmit}
+          onClick={handlePurchase}
           type="submit"
           form="checkout-form"
-          className="w-full bg-black text-white py-2 rounded text-base font-semibold shadow hover:bg-gray-900 transition"
+          className="flex-1 px-6 py-3 bg-[#a58c3d] text-white rounded-md hover:bg-[#C2992F] font-semibold transition-colors text-center"
         >
           PURCHASE
         </button>

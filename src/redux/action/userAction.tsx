@@ -131,6 +131,7 @@ export const addressStoreByUser = ({
           city: formData.city,
           state: formData.state,
           zip: formData.zip,
+          isDefault: formData.isDefault,
         }
       );
       dispatch({

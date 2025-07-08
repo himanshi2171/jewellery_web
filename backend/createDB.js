@@ -16,9 +16,10 @@ const d = require("../src/data/products.json");
       await db.Address.create({
         address: newUser.address,
         userId: newUser.id,
-        city:newUser.city,
-        state:newUser.state,
-        zip:newUser.zip,
+        city: newUser.city,
+        state: newUser.state,
+        zip: newUser.zip,
+        default: newUser.default,
       });
     }
     for (const category of d) {
@@ -34,10 +35,24 @@ const d = require("../src/data/products.json");
       for (const product of category.data) {
         await db.Product.create({
           ...product,
-          quantity: product.quantity,
+          size: product.size,
           categoryId: newCategory.id,
         });
       }
+    }
+    for (const order of d) {
+      await db.Order.create({
+        cartItem: order.cartItem,
+        phone: order.phone,
+        delivery_method: order.delivery_method,
+        total_amount: order.total_amount,
+        subtotal: order.subtotal,
+        shipping: order.shipping,
+        tax: order.tax,
+        card: order.card,
+        expiry: order.expiry,
+        cvv: order.cvv,
+      });
     }
   } catch (error) {
     console.error("❌ Error seeding data:", error);

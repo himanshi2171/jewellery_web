@@ -66,7 +66,7 @@ export default function SignUp() {
         onSuccess: (res) => {
           if (res.status === 201) {
             localStorage.setItem("currentUser", JSON.stringify(res.data));
-            router.push("/");
+            router.push("/auth/signIn");
           }
         },
         onFailure: (error) => {

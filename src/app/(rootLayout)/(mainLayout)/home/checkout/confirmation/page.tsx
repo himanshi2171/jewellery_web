@@ -74,7 +74,6 @@ export default function ConfirmationPage() {
           <div className="space-y-2 md:pl-8 mt-4 md:mt-0">
             <div><span className="font-semibold">Paid With:</span> <span className="text-gray-700">{maskedCard}</span></div>
             <div><span className="font-semibold">Exp. Date:</span> <span className="text-gray-700">{billing.expiry || "--/--"}</span></div>
-            <div><span className="font-semibold">Billing Address:</span> <span className="text-gray-700">{billing.address}</span></div>
           </div>
         </div>
       </div>

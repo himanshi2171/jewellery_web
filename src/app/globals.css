@@ -38,9 +38,6 @@ a {
   text-decoration: none;
   transition: color 0.2s;
 }
-a:hover {
-  color: #bfa06a;
-}
 
 button, input, select, textarea {
   font-family: inherit;
@@ -206,7 +203,7 @@ html {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #bfa06a 0%, #e5c79e 100%);
+  background: linear-gradient(135deg, #000000 0%, #e5c79e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

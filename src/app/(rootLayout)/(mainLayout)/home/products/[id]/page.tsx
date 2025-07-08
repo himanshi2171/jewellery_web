@@ -94,7 +94,7 @@ const ProductDetailPage = () => {
         </div>
         <Link
           href="/home/products"
-          className="px-4 py-2 bg-[#a58c3d] text-white rounded hover:bg-[#5a6d48] flex items-center gap-2"
+          className="px-4 py-2 bg-[#a58c3d] text-white rounded hover:bg-[#C2992F] flex items-center gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Products
@@ -109,7 +109,7 @@ const ProductDetailPage = () => {
         <div className="mb-8">
           <Link
             href="/home/products"
-            className="inline-flex items-center text-[#a58c3d] hover:text-[#5a6d47] transition-colors mb-4"
+            className="inline-flex items-center text-[#a58c3d] hover:text-[#C2992F] transition-colors mb-4"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Products
@@ -132,8 +132,8 @@ const ProductDetailPage = () => {
                       name={p.name}
                       price={p.price}
                       image={p.image}
-                      rating={(p as any).rating}
-                      reviews={(p as any).reviews}
+                      // rating={(p as any).rating}
+                      // reviews={(p as any).reviews}
                       slug={
                         p.name.toLowerCase().replace(/\s+/g, "-") + "-" + p.id
                       }
@@ -181,7 +181,7 @@ const ProductDetailPage = () => {
                     <Star
                       key={i}
                       className={`h-5 w-5 ${
-                        i < Math.floor(product.rating)
+                        i < Math.floor(product?.rating)
                           ? "text-yellow-400 fill-current"
                           : "text-gray-300"
                       }`}
@@ -224,7 +224,7 @@ const ProductDetailPage = () => {
               <div className="mb-6">
                 <h3 className="font-semibold text-gray-900 mb-2">Materials</h3>
                 <div className="flex flex-wrap gap-2">
-                  {product.materials.map((material) => (
+                  {product.materials.map((material: any) => (
                     <span
                       key={material}
                       className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
@@ -238,7 +238,7 @@ const ProductDetailPage = () => {
                 <div className="mb-6">
                   <h3 className="font-semibold text-gray-900 mb-2">Length</h3>
                   <div className="flex gap-2">
-                    {product.length.map((len) => (
+                    {product.length.map((len: any) => (
                       <button
                         key={len}
                         onClick={() => setSelectedSize(len)}
@@ -258,7 +258,7 @@ const ProductDetailPage = () => {
                 <div className="mb-6">
                   <h3 className="font-semibold text-gray-900 mb-2">Size</h3>
                   <div className="flex gap-2">
-                    {product.size.map((size) => (
+                    {product.size.map((size: any) => (
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
@@ -307,7 +307,7 @@ const ProductDetailPage = () => {
               <button
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
-                className="w-full px-6 py-3 bg-[#a58c3d] text-white rounded-md hover:bg-[#5a6d48] font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full px-6 py-3 bg-[#a58c3d] text-white rounded-md hover:bg-[#C2992F] font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart

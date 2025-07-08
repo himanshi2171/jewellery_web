@@ -61,8 +61,10 @@ export default function NewCollectionPage() {
   useEffect(() => {
     if (query) {
       apiCalling(query);
+    } else {
+      setProducts(sideBarProduct);
     }
-  }, [query, dispatch]);
+  }, [query, dispatch, sideBarProduct]);
 
   const apiCalling = (query: string) => {
     dispatch(
@@ -106,6 +108,7 @@ export default function NewCollectionPage() {
     );
     return Array.from(set) as string[];
   }, [products]);
+
   const priceValues = useMemo(
     () =>
       products
@@ -343,38 +346,6 @@ export default function NewCollectionPage() {
                 </div>
               </div>
             )}
-            <div className="mb-2">
-              <span className="block font-semibold mb-2">Quick Filters</span>
-              <div className="flex flex-col gap-1">
-                <label className="flex items-center gap-2 text-base cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showInStockOnly}
-                    onChange={() => setShowInStockOnly((v) => !v)}
-                    className="accent-[#a58c3d]"
-                  />
-                  In Stock Only
-                </label>
-                <label className="flex items-center gap-2 text-base cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showSaleOnly}
-                    onChange={() => setShowSaleOnly((v) => !v)}
-                    className="accent-[#a58c3d]"
-                  />
-                  On Sale
-                </label>
-                <label className="flex items-center gap-2 text-base cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showNewOnly}
-                    onChange={() => setShowNewOnly((v) => !v)}
-                    className="accent-[#a58c3d]"
-                  />
-                  New Arrivals
-                </label>
-              </div>
-            </div>
           </aside>
           <main className="flex-1">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
